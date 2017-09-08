@@ -81,6 +81,24 @@
         return players;
     };
 
+    self.getWinners = function () {
+        var maxScore = 0, i, imax;
+        for (i = 0, imax = players.length; i < imax; i++) {
+            if (players[i].score > maxScore) {
+                maxScore = players[i].score;
+            }
+        }
+
+        var winners = [];
+        for (i = 0, imax = players.length; i < imax; i++) {
+            if (players[i].score === maxScore) {
+                winners.push(players[i]);
+            }
+        }
+
+        return winners;
+    };
+
     self.registerChangeListener = function (callback) {
         if (callback && callback instanceof Function) {
             changeCallback = callback;

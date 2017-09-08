@@ -219,7 +219,7 @@ var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, t
                 var promise = finishScoreCalculation();
                 promise.then(function() {
                     //todo handle it as event
-                    $("#game-over-dialog").modal();
+                    $(document).trigger("game.over", { winners: playersInst.getWinners() });
                 });
                 return;
             }

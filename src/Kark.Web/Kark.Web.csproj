@@ -117,35 +117,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\original\info.txt" />
-    <Content Include="Assets\original\tile1.jpg" />
-    <Content Include="Assets\original\tile10.jpg" />
-    <Content Include="Assets\original\tile11.jpg" />
-    <Content Include="Assets\original\tile12.jpg" />
-    <Content Include="Assets\original\tile13.jpg" />
-    <Content Include="Assets\original\tile14.jpg" />
-    <Content Include="Assets\original\tile15.jpg" />
-    <Content Include="Assets\original\tile16.jpg" />
-    <Content Include="Assets\original\tile17.jpg" />
-    <Content Include="Assets\original\tile18.jpg" />
-    <Content Include="Assets\original\tile19.jpg" />
-    <Content Include="Assets\original\tile2.jpg" />
-    <Content Include="Assets\original\tile20.jpg" />
-    <Content Include="Assets\original\tile21.jpg" />
-    <Content Include="Assets\original\tile22.jpg" />
-    <Content Include="Assets\original\tile23.jpg" />
-    <Content Include="Assets\original\tile24.jpg" />
-    <Content Include="Assets\original\tile25.jpg" />
-    <Content Include="Assets\original\tile26.jpg" />
-    <Content Include="Assets\original\tile27.jpg" />
-    <Content Include="Assets\original\tile28.jpg" />
-    <Content Include="Assets\original\tile3.jpg" />
-    <Content Include="Assets\original\tile4.jpg" />
-    <Content Include="Assets\original\tile5.jpg" />
-    <Content Include="Assets\original\tile6.jpg" />
-    <Content Include="Assets\original\tile7.jpg" />
-    <Content Include="Assets\original\tile8.jpg" />
-    <Content Include="Assets\original\tile9.jpg" />
     <Content Include="Assets\pixels\006600.png" />
     <Content Include="Assets\pixels\010106.png" />
     <Content Include="Assets\pixels\3933FF.png" />

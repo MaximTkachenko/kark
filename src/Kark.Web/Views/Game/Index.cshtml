@@ -152,7 +152,6 @@
                     <h4 class="modal-title" id="game-over-dialog-label">Game over</h4>
                 </div>
                 <div class="modal-body">
-                    some data about game
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Got it!</button>
@@ -248,7 +247,7 @@
             if(!text || !text.value){
                 return;
             }
-            var id = this.state.messages[this.state.messages.length - 1].id + 1;            
+            var id = this.state.messages[this.state.messages.length - 1].id + 1;
             var message = {id:id, author: "author", message: text.value};
             this.pushMessage(message);
 
@@ -303,6 +302,10 @@
             
             $('#mode-selector').remove();
             $("#game-info").removeClass("hidden");
+        });
+    
+        $(document).on("game.over", function(e, data) {
+            $("#game-over-dialog").modal().find(".modal-body").text("WINNERS:" + data.winners.map(function(w){return w.name;}).join(", ") + "!");
         });
     });
 
