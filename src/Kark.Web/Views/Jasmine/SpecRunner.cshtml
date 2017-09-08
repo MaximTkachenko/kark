@@ -1,0 +1,35 @@
+@{
+  Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Jasmine Spec Runner</title>
+
+    <link rel="shortcut icon" type="image/png" href="/Content/jasmine/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="/Content/jasmine/jasmine.css">
+    <script type="text/javascript" src="/Scripts/jasmine/jasmine.js"></script>
+    <script type="text/javascript" src="/Scripts/jasmine/jasmine-html.js"></script>
+    <script type="text/javascript" src="/Scripts/jasmine/boot.js"></script>
+    
+    <!-- include spec files here... -->
+    <script type="text/javascript" src="@Url.Content("~/Scripts/app/globalConstants.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/app/metadataCalculator.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/app/test/metadataCalculatorSpec.js")"></script>
+    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/app/utils.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/app/errors.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/app/tileObjectsService.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/app/test/tileObjectsServiceSpec.js")"></script>
+    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/app/tileQueueService.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/app/test/tileQueueServiceSpec.js")"></script>
+</head>
+
+<body>
+</body>
+</html>
