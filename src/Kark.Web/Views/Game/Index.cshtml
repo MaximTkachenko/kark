@@ -1,4 +1,5 @@
-﻿
+﻿@using System.Web.Optimization
+
 @{
     Layout = null;
 }
@@ -17,17 +18,8 @@
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.2.min.js"></script>
     <!-- custom -->
     <script type="text/javascript" src="/signalr/hubs"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/app/errors.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/app/metadata.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/app/globalConstants.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/app/metadataCalculator.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/app/utils.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/app/phaserSpriteExtension.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/app/tileObjectsService.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/app/tileQueueService.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/app/playerService.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/app/main.js")"></script>
-    <link rel="stylesheet" href="@Url.Content("~/Content/style.css")" />
+    @Scripts.Render(BundleConfig.Scripts.MainJs)
+    @Styles.Render(BundleConfig.Styles.MainCss)
     <!-- reactjs -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js"></script>
