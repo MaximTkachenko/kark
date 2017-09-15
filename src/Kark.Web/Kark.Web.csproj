@@ -128,9 +128,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\pixels\006600.png" />
     <Content Include="Assets\pixels\010106.png" />
     <Content Include="Assets\pixels\3933FF.png" />
+    <Content Include="Assets\pixels\F47C41.png" />
     <Content Include="Assets\pixels\FF333C.png" />
     <Content Include="Assets\tiles\info.txt" />
     <Content Include="Assets\tiles\tile1.jpg" />
