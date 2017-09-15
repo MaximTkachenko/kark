@@ -82,8 +82,8 @@
     <div id="players"></div>
     <div id="chat"></div>
     <div class="feedback-link-container">
-        <a href="/" class="btn btn-primary">New game</a>
         <a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#feedback-dialog">Send feedback</a>
+        <button onclick="if (confirm('You are going to start a new game.')) {location.href = '/';}" class="btn btn-primary">New game</button>
     </div>
     <!-- game over popup -->
     <div class="modal fade" id="game-over-dialog" tabindex="-1" role="dialog" aria-labelledby="game-over-dialog-label">
@@ -231,7 +231,7 @@
             var defaultUsers = [{name: "Frodo Baggins", color: "#FF333C", hexColor: 0xFF333C, availableFlags: flagsStartNumber, score: 0},
                 {name: "Gandalf the Grey", color: "#3933FF", hexColor: 0x3933FF, availableFlags: flagsStartNumber, score: 0},
                 {name: "Aragorn", color: "#010106", hexColor: 0x010106, availableFlags: flagsStartNumber, score: 0},
-                {name: "Sauron", color: "#006600", hexColor: 0x006600, availableFlags: flagsStartNumber, score: 0}
+                {name: "Sauron", color: "#f47c41", hexColor: 0xf47c41, availableFlags: flagsStartNumber, score: 0}
             ];
 
             for (var i = 0, imax = usersNumber; i < imax; i++){
