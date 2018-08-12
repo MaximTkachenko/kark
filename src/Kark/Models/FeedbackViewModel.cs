@@ -1,10 +1,13 @@
-﻿namespace Kark.Models
+﻿using Newtonsoft.Json;
+
+namespace Kark.Models
 {
-    //todo need validation
     public class FeedbackViewModel
     {
+        [JsonProperty("submitterEmail")]
         public string SubmitterEmail { get; set; }
 
+        [JsonProperty("text")]
         public string Text { get; set; }
     }
 }
