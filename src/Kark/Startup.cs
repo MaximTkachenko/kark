@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Kark.Filters;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,10 @@ namespace Kark
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ValidatorFilter));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

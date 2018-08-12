@@ -1,10 +1,6 @@
-﻿using System.Collections.Specialized;
-using System.Net;
-using System.Net.Mail;
-using System.Threading.Tasks;
+﻿using Kark.Filters;
 using Kark.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Protocols;
 
 namespace Kark.Controllers
 {
@@ -16,6 +12,7 @@ namespace Kark.Controllers
             return View();
         }
 
+        [ServiceFilter(typeof(ValidatorFilter), Order = 1)]
         [HttpPost("/feedback")]
         public IActionResult Feedback(FeedbackViewModel feedbackModel)
         {

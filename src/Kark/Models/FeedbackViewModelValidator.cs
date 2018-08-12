@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace Kark.Models
 {
-    public class FeedbackViewModelValidator
+    public class FeedbackViewModelValidator : AbstractValidator<FeedbackViewModel>
     {
-        //todo
+        public FeedbackViewModelValidator()
+        {
+            RuleFor(x => x.SubmitterEmail)
+                .NotNull().NotEmpty().EmailAddress();
+
+            RuleFor(x => x.SubmitterEmail)
+                .NotNull().NotEmpty().MaximumLength(3000);
+        }
     }
 }
