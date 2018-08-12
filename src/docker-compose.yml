@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  kark:
+    image: ${DOCKER_REGISTRY}kark
+    build:
+      context: .
+      dockerfile: Kark/Dockerfile
