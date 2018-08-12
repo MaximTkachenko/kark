@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="App.Metrics" Version="2.1.0" />
+    <PackageReference Include="App.Metrics.Health.Core" Version="2.0.0" />
     <PackageReference Include="FluentValidation" Version="7.6.105" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
