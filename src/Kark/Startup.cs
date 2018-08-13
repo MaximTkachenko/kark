@@ -23,6 +23,7 @@ namespace Kark
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseMvc();
 
             app.Run(async (context) =>
