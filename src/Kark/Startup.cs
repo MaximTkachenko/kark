@@ -10,10 +10,9 @@ namespace Kark
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(typeof(ValidatorFilter));
-            });
+            services.AddMvc();
+
+            services.AddSingleton<ValidatorFilter>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
