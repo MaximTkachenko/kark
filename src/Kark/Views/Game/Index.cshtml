@@ -219,7 +219,7 @@
 
         $(document).ready(function(){
         $("#post-feedback").click(function(){
-        $.post("@Url.Action("Feedback")", {SubmitterEmail: $("#submitter-email").val(), Text: $("#feedback-text").val()});
+        $.post("@Url.Action("Feedback")", {submitterEmail: $("#submitter-email").val(), text: $("#feedback-text").val()});
         });
 
         $('#local-game-start-btn').click(function(){
