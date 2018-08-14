@@ -29,6 +29,8 @@ namespace Kark
                 app.UseDeveloperExceptionPage();
             }
 
+            //todo add logging
+
             app.UseStaticFiles();
             app.UseMvc();
 

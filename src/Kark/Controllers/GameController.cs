@@ -4,6 +4,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using Kark.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Kark.Controllers
@@ -11,10 +12,12 @@ namespace Kark.Controllers
     public class GameController : Controller
     {
         private readonly EmailSettings _emailSettings;
+        private readonly ILogger<GameController> _logger;
 
-        public GameController(IOptions<EmailSettings> emailOptions)
+        public GameController(IOptions<EmailSettings> emailOptions, ILogger<GameController> logger)
         {
             _emailSettings = emailOptions.Value;
+            _logger = logger;
         }
 
         [HttpGet("/")]
@@ -33,22 +36,30 @@ namespace Kark.Controllers
 
             Task.Run(() =>
             {
-                var smtp = new SmtpClient
+                try
                 {
-                    Host = _emailSettings.SmtpServer,
-                    Port = _emailSettings.SmtpPort,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(_emailSettings.From, _emailSettings.Password)
-                };
-                using (var message = new MailMessage(_emailSettings.From, _emailSettings.To)
+                    using (var smtp = new SmtpClient
+                    {
+                        Host = _emailSettings.SmtpServer,
+                        Port = _emailSettings.SmtpPort,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(_emailSettings.From, _emailSettings.Password)
+                    })
+                    using (var message = new MailMessage(_emailSettings.From, _emailSettings.To)
+                    {
+                        Subject = "Kark feedback",
+                        Body =
+                            $"FROM:{Environment.NewLine}{feedbackModel.SubmitterEmail}{Environment.NewLine}TEXT:{Environment.NewLine}{feedbackModel.Text}"
+                    })
+                    {
+                        smtp.Send(message);
+                    }
+                }
+                catch (Exception ex)
                 {
-                    Subject = "Kark feedback",
-                    Body = $"FROM:{Environment.NewLine}{feedbackModel.SubmitterEmail}{Environment.NewLine}TEXT:{Environment.NewLine}{feedbackModel.Text}"
-                })
-                {
-                    smtp.Send(message);
+                    _logger.LogError(ex, "Failed to send Kark feedback");
                 }
             });
 

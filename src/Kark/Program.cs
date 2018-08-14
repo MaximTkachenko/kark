@@ -12,6 +12,7 @@ namespace Kark
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseMetricsEndpoints()
                 .UseStartup<Startup>();
     }
 }
