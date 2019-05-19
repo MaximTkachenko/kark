@@ -10,57 +10,55 @@ namespace Kark.PlainTileGenerator
     class Program
     {
         private const int TileSize = 91;
+        private const int CellSize = 18;
+        private const int RightCellSize = CellSize + 1;
+        private const int MaxCellNumber = 4;
+        private static readonly Dictionary<string, Color> Colors = new Dictionary<string, Color>
+        {
+            { "r", Color.White },
+            { "t", Color.Brown },
+            { "f", Color.Green },
+            { "c", Color.Brown },
+            { "e", Color.Black },
+        };
 
-        static void Main(string[] args)
+        static void Main()
         {
             var tiles = JsonConvert.DeserializeObject<Dictionary<string, Tile>>(File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tiles.json")));
+
             var folderToSave = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tiles");
             if (Directory.Exists(folderToSave))
             {
-                Directory.Delete(folderToSave);
+                Directory.Delete(folderToSave, true);
             }
+            Directory.CreateDirectory(folderToSave);
 
             foreach (var tile in tiles)
             {
                 using (Bitmap bmp = new Bitmap(TileSize, TileSize))
+                using (Graphics graph = Graphics.FromImage(bmp))
                 {
+                    for (int i = 0; i < tile.Value.Content.GetLength(0); i++)
+                    for (int j = 0; j < tile.Value.Content.GetLength(1); j++)
+                    {
+                        var data = tile.Value.Content[i, j];
+                        if (string.IsNullOrEmpty(data))
+                        {
+                            continue;
+                        }
 
+                        graph.FillRectangle(
+                            brush: new SolidBrush(
+                                color: Colors[data.Substring(0, 1)]
+                            ),
+                            rect: new Rectangle(i * CellSize, j * CellSize, 
+                                i == MaxCellNumber ? RightCellSize : CellSize, j == MaxCellNumber ? RightCellSize : CellSize)
+                        );
+                    }
+                    
                     bmp.Save(Path.Combine(folderToSave, $"{tile.Key}.png"), ImageFormat.Png);
                 }
             }
-
-            /*int width = 512;
-            int height = 512;
-
-            int x, y, w, h;
-            x = y = 10;
-            w = h = 100;
-
-            using (Bitmap bmp = new Bitmap(width, height))
-            {
-                using (Graphics g = Graphics.FromImage(bmp))
-                {
-
-                    g.FillRectangle(
-                        brush: new SolidBrush(
-                            color: Color.Blue
-                        ),
-                        rect: new Rectangle(x, y, w, h)
-                    );
-
-                    g.DrawRectangle(
-                        pen: new Pen(
-                            color: Color.Black,
-                            width: 3
-                        ),
-                        rect: new Rectangle(x, y, w, h)
-                    );
-
-                    bmp.Save(@"C:\temp\result.png", ImageFormat.Png);
-
-                }
-            }*/
-
         }
     }
 }
