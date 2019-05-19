@@ -167,57 +167,6 @@
         }
     });
     
-    var ChatMessage = React.createClass({
-        render: function(){
-            return (
-                <div>{this.props.author}:  {this.props.message}</div>);
-        }
-    });
-    
-    var Chat = React.createClass({    
-        getInitialState: function(){
-            //this.state.ChatHub.client.pushNewMessage = this.pushNewMessage;
-            return { messages: [{id:1, author: "author", message: "test message"}] };
-        },
-        pushMessage: function(message){
-            var messagesCopy = this.state.messages.slice();
-            messagesCopy.push(message);
-            this.setState({ messages: messagesCopy });
-        },
-        sendMessage: function(e){
-            var text = document.getElementById("message-input");
-            if(!text || !text.value){
-                return;
-            }
-            var id = this.state.messages[this.state.messages.length - 1].id + 1;
-            var message = {id:id, author: "author", message: text.value};
-            this.pushMessage(message);
-
-            text.value = "";
-        },
-        render: function(){
-            var style = { height: "60%" };
-            return (
-        <div>
-            <div style={style}>
-                {this.state.messages.map(function(message){
-                return <ChatMessage key={message.id} {...message} />
-                })}
-            </div>
-            <div>
-                <form className="form-inline">
-                    <div className="form-group">
-                        <div className="input-group">
-                            <input type="text" className="form-control" id="message-input" placeholder="Message" />
-                        </div>
-                    </div>
-                    <input type="button" className="btn btn-primary" onClick={this.sendMessage} value="Send" />
-                </form>
-            </div>
-        </div>);
-        }
-    });    
-    
     $(document).ready(function(){
         $("#post-feedback").click(function(){
             $.post("@Url.Action("Feedback")", {SubmitterEmail: $("#submitter-email").val(), Text: $("#feedback-text").val()});
