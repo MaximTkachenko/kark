@@ -54,9 +54,13 @@ namespace Kark.PlainTileGenerator
                             rect: new Rectangle(i * CellSize, j * CellSize, 
                                 i == MaxCellNumber ? RightCellSize : CellSize, j == MaxCellNumber ? RightCellSize : CellSize)
                         );
+
+                        //var img = Image.FromFile(@"C:\temp\hut.png");
+                        //graph.DrawImage(img, new Point(0, 0));
+                        //img.Dispose();
                     }
                     
-                    bmp.Save(Path.Combine(folderToSave, $"{tile.Key}.png"), ImageFormat.Png);
+                    bmp.Save(Path.Combine(folderToSave, $"{tile.Key}.jpg"), ImageFormat.Jpeg);
                 }
             }
         }

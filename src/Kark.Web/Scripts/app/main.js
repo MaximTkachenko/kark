@@ -1,4 +1,4 @@
-var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, tileQueueServiceObj, phaser) {
+var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, tileQueueServiceObj, phaser, tilesPrefix) {
     "use strict";
 
     var game = new phaser.Game("100", "100", phaser.CANVAS, "game-container", { preload: preload, create: create, update: update });
@@ -26,7 +26,7 @@ var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, t
         for (var key in tilesMetadata) {
             if (!tilesMetadata.hasOwnProperty(key)) continue;
 
-            game.load.image(key, "assets/tiles/" + key + ".jpg");
+            game.load.image(key, "assets/" + tilesPrefix + "/" + key + ".jpg");
         };
 
         //load emiters' assets

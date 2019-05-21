@@ -10,13 +10,13 @@ namespace Kark.Web.Controllers
 {
     public class GameController : Controller
     {
-        [HttpGet]
+        [HttpGet, Route("index"), Route("original")]
         public ActionResult Index()
         {
-            return View();
+            return View(new GameIndexViewModel{ IsOriginal = Request.Path.Contains("original") });
         }
 
-        [HttpPost]
+        [HttpPost, Route("feedback")]
         public ActionResult Feedback(FeedbackViewModel feedbackModel)
         {
             if (!ModelState.IsValid)

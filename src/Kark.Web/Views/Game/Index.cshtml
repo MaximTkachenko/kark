@@ -1,7 +1,10 @@
 ﻿@using System.Web.Optimization
+@model Kark.Web.Models.GameIndexViewModel
 
 @{
     Layout = null;
+    var tilePrefix = Model.IsOriginal ? "tiles" : "plain_tiles";
+    var newGameUrl = Model.IsOriginal ? "/original" : "/index";
 }
 
 <!DOCTYPE html>
@@ -83,7 +86,7 @@
     <div id="chat"></div>
     <div class="feedback-link-container">
         <a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#feedback-dialog">Send feedback</a>
-        <button onclick="if (confirm('You are going to start a new game.')) {location.href = '/';}" class="btn btn-primary">New game</button>
+        <button onclick="if (confirm('You are going to start a new game.')) {location.href = '@newGameUrl';}" class="btn btn-primary">New game</button>
     </div>
     <!-- game over popup -->
     <div class="modal fade" id="game-over-dialog" tabindex="-1" role="dialog" aria-labelledby="game-over-dialog-label">
@@ -187,7 +190,7 @@
                 players.add(defaultUsers[i]);
             }
             
-            var game = new KarkGame(players, objectsStore, new GameDragger(), tilesMetadata, tileQueueService(tilesMetadata, tilesSetNumber), Phaser);
+            var game = new KarkGame(players, objectsStore, new GameDragger(), tilesMetadata, tileQueueService(tilesMetadata, tilesSetNumber), Phaser, "@tilePrefix");
             ReactDOM.render(<PlayersList />, document.getElementById("players") );
             //ReactDOM.render(<Chat />, document.getElementById("chat") );
             

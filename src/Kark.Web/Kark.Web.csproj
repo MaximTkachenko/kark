@@ -132,6 +132,34 @@
     <Content Include="Assets\pixels\3933FF.png" />
     <Content Include="Assets\pixels\F47C41.png" />
     <Content Include="Assets\pixels\FF333C.png" />
+    <Content Include="Assets\plain_tiles\tile1.jpg" />
+    <Content Include="Assets\plain_tiles\tile10.jpg" />
+    <Content Include="Assets\plain_tiles\tile11.jpg" />
+    <Content Include="Assets\plain_tiles\tile12.jpg" />
+    <Content Include="Assets\plain_tiles\tile13.jpg" />
+    <Content Include="Assets\plain_tiles\tile14.jpg" />
+    <Content Include="Assets\plain_tiles\tile15.jpg" />
+    <Content Include="Assets\plain_tiles\tile16.jpg" />
+    <Content Include="Assets\plain_tiles\tile17.jpg" />
+    <Content Include="Assets\plain_tiles\tile18.jpg" />
+    <Content Include="Assets\plain_tiles\tile19.jpg" />
+    <Content Include="Assets\plain_tiles\tile2.jpg" />
+    <Content Include="Assets\plain_tiles\tile20.jpg" />
+    <Content Include="Assets\plain_tiles\tile21.jpg" />
+    <Content Include="Assets\plain_tiles\tile22.jpg" />
+    <Content Include="Assets\plain_tiles\tile23.jpg" />
+    <Content Include="Assets\plain_tiles\tile24.jpg" />
+    <Content Include="Assets\plain_tiles\tile25.jpg" />
+    <Content Include="Assets\plain_tiles\tile26.jpg" />
+    <Content Include="Assets\plain_tiles\tile27.jpg" />
+    <Content Include="Assets\plain_tiles\tile28.jpg" />
+    <Content Include="Assets\plain_tiles\tile3.jpg" />
+    <Content Include="Assets\plain_tiles\tile4.jpg" />
+    <Content Include="Assets\plain_tiles\tile5.jpg" />
+    <Content Include="Assets\plain_tiles\tile6.jpg" />
+    <Content Include="Assets\plain_tiles\tile7.jpg" />
+    <Content Include="Assets\plain_tiles\tile8.jpg" />
+    <Content Include="Assets\plain_tiles\tile9.jpg" />
     <Content Include="Assets\tiles\info.txt" />
     <Content Include="Assets\tiles\tile1.jpg" />
     <Content Include="Assets\tiles\tile10.jpg" />
@@ -167,6 +195,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\app\errors.js" />
     <Content Include="Scripts\app\globalConstants.js" />
     <Content Include="Scripts\app\metadataCalculator.js" />
@@ -206,6 +235,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\FeedbackViewModel.cs" />
+    <Compile Include="Models\GameIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -225,7 +255,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\plain_tiles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
