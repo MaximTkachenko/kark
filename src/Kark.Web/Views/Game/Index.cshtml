@@ -4,7 +4,7 @@
 @{
     Layout = null;
     var tilePrefix = Model.IsOriginal ? "tiles" : "plain_tiles";
-    var newGameUrl = Model.IsOriginal ? "/original" : "/index";
+    var newGameUrl = Model.IsOriginal ? "/original" : "/";
 }
 
 <!DOCTYPE html>
@@ -16,14 +16,12 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/phaser-ce/2.8.7/phaser.min.js"></script>
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.2.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
     <!-- custom -->
-    <script type="text/javascript" src="/signalr/hubs"></script>
     @Scripts.Render(BundleConfig.Scripts.MainJs)
     @Styles.Render(BundleConfig.Styles.MainCss)
     <title>kark</title>
@@ -83,7 +81,6 @@
 <div id="game-container" style="overflow: hidden;"></div>
 <div id="game-info" class="hidden">
     <div id="players"></div>
-    <div id="chat"></div>
     <div class="feedback-link-container">
         <a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#feedback-dialog">Send feedback</a>
         <button onclick="if (confirm('You are going to start a new game.')) {location.href = '@newGameUrl';}" class="btn btn-primary">New game</button>
@@ -192,7 +189,6 @@
             
             var game = new KarkGame(players, objectsStore, new GameDragger(), tilesMetadata, tileQueueService(tilesMetadata, tilesSetNumber), Phaser, "@tilePrefix");
             ReactDOM.render(<PlayersList />, document.getElementById("players") );
-            //ReactDOM.render(<Chat />, document.getElementById("chat") );
             
             $('#mode-selector').remove();
             $("#game-info").removeClass("hidden");
