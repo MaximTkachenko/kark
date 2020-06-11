@@ -1,4 +1,4 @@
-# kark
+# kark [WORK IN PROGRESS]
 
 [How to Play Carcassonne](https://www.youtube.com/watch?v=d89u-gXjIVY)
 
@@ -18,3 +18,8 @@ Folders:
 Files:
 - `src\index.html` - run it in browser to start a new game
 - `src\jasmine-spec-runner.html` - run it in browser to run jasmine tests
+
+Tips:
+- double click: rotate a tile
+- one click: place a tile
+- available placements for a tile are marked with green
