@@ -1,12 +1,3 @@
-﻿@using System.Web.Optimization
-@model Kark.Web.Models.GameIndexViewModel
-
-@{
-    Layout = null;
-    var tilePrefix = Model.IsOriginal ? "tiles" : "plain_tiles";
-    var newGameUrl = Model.IsOriginal ? "/original" : "/";
-}
-
 <!DOCTYPE html>
 
 <html>
@@ -21,9 +12,18 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-    <!-- custom -->
-    @Scripts.Render(BundleConfig.Scripts.MainJs)
-    @Styles.Render(BundleConfig.Styles.MainCss)
+
+    <script type="text/javascript" src="Scripts/app/errors.js"></script>
+    <script type="text/javascript" src="Scripts/app/metadata.js"></script>
+    <script type="text/javascript" src="Scripts/app/globalConstants.js"></script>
+    <script type="text/javascript" src="Scripts/app/metadataCalculator.js"></script>
+    <script type="text/javascript" src="Scripts/app/utils.js"></script>
+    <script type="text/javascript" src="Scripts/app/phaserSpriteExtension.js"></script>
+    <script type="text/javascript" src="Scripts/app/tileObjectsService.js"></script>
+    <script type="text/javascript" src="Scripts/app/tileQueueService.js"></script>
+    <script type="text/javascript" src="Scripts/app/playerService.js"></script>
+    <script type="text/javascript" src="Scripts/app/main.js"></script>
+    <link rel="stylesheet" href="Content/style.css" />
     <title>kark</title>
 </head>
 <body>
@@ -82,8 +82,7 @@
 <div id="game-info" class="hidden">
     <div id="players"></div>
     <div class="feedback-link-container">
-        <a href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#feedback-dialog">Send feedback</a>
-        <button onclick="if (confirm('You are going to start a new game.')) {location.href = '@newGameUrl';}" class="btn btn-primary">New game</button>
+        <button onclick="if (confirm('You are going to start a new game.')) {location.href = location.href;}" class="btn btn-primary">New game</button>
     </div>
     <!-- game over popup -->
     <div class="modal fade" id="game-over-dialog" tabindex="-1" role="dialog" aria-labelledby="game-over-dialog-label">
@@ -97,30 +96,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Got it!</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- feedback dialog -->
-    <div class="modal fade" id="feedback-dialog" tabindex="-1" role="dialog" aria-labelledby="feedback-dialog-label">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="feedback-dialog-label">Feedback</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="submitter-email">Your email address</label>
-                        <input type="email" class="form-control" id="submitter-email"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="feedback-text">Feedback about game</label>
-                        <textarea id="feedback-text" class="form-control"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="post-feedback" class="btn btn-primary" data-dismiss="modal">Send</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -168,10 +143,6 @@
     });
     
     $(document).ready(function(){
-        $("#post-feedback").click(function(){
-            $.post("@Url.Action("Feedback")", {SubmitterEmail: $("#submitter-email").val(), Text: $("#feedback-text").val()});
-        });
-
         $('#local-game-start-btn').click(function(){
             var usersNumber = parseInt($('#local-game-users-number').val());
             var tilesSetNumber = parseInt($('#local-game-tiles-set').val());
@@ -187,7 +158,7 @@
                 players.add(defaultUsers[i]);
             }
             
-            var game = new KarkGame(players, objectsStore, new GameDragger(), tilesMetadata, tileQueueService(tilesMetadata, tilesSetNumber), Phaser, "@tilePrefix");
+            var game = new KarkGame(players, objectsStore, new GameDragger(), tilesMetadata, tileQueueService(tilesMetadata, tilesSetNumber), Phaser, "tiles");
             ReactDOM.render(<PlayersList />, document.getElementById("players") );
             
             $('#mode-selector').remove();
