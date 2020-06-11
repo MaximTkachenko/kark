@@ -2,7 +2,7 @@
 
 [How to Play Carcassonne](https://www.youtube.com/watch?v=d89u-gXjIVY)
 
-This project was created 3 years ago as an experiment with phaserjs framework to create browser game. In last update I removed all C# code used for backend and now it's js-only game. Some things should be done here to improve it:
+This project was created 3 years ago as an experiment with [phaserjs](https://phaser.io/) framework to create browser game. In last update I removed all C# code used for backend and now it's js-only game. Some things should be done here to improve it:
 - separate files for react components
 - update react version
 - add js modules and webpack
