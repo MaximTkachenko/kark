@@ -26,7 +26,6 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "phaser": "^3.23.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }

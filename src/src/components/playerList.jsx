@@ -24,6 +24,14 @@ export default class PlayersList extends React.Component {
         this.state = { players: playerService.getPlayers() };
     }
 
+    componentDidMount(){
+        document.addEventListener('playersChanged', () => {this.updatePlayers();});
+    }
+
+    updatePlayers(){
+        this.state = { players: playerService.getPlayers() };
+    }
+
     render(){
         return (<div>
             {this.state.players.map(function(player){

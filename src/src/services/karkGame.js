@@ -1,10 +1,16 @@
 import playerService from './playerService';
+import tilesMetadata from '../services/metadata';
+import tileObjects from '../services/tileObjectsService';
+import tileQueueService from '../services/tileQueueService';
+import Constants from "./globalConstants";
 
-var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, tileQueueServiceObj, phaser, tilesPrefix) {
+const KarkGame = function (tilesSetNumber) {
     "use strict";
 
-    var game = new phaser.Game("100", "100", phaser.CANVAS, "game-container", { preload: preload, create: create, update: update });
+    var game = new Phaser.Game("100", "100", Phaser.CANVAS, "game-container", { preload: preload, create: create, update: update });
 
+    var tileQueueServiceObj = new tileQueueService(tilesSetNumber);
+    var gameDragger = new GameDragger();
     var cells = {};
     var tileLayer;
     var cellLayer;
@@ -17,22 +23,22 @@ var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, t
 
     function preload()
     {
-        game.world.resize(GAME_WORLD_SIZE, GAME_WORLD_SIZE);
-        game.camera.x = (GAME_WORLD_SIZE - game.width) / 2;
-        game.camera.y = (GAME_WORLD_SIZE - game.height) / 2;
+        game.world.resize(Constants.GAME_WORLD_SIZE, Constants.GAME_WORLD_SIZE);
+        game.camera.x = (Constants.GAME_WORLD_SIZE - game.width) / 2;
+        game.camera.y = (Constants.GAME_WORLD_SIZE - game.height) / 2;
 
-        game.stage.backgroundColor = MAIN_COLOR_HASH;
+        game.stage.backgroundColor = Constants.MAIN_COLOR_HASH;
         game.canvas.oncontextmenu = function(e) { e.preventDefault(); };
         game.renderer.renderSession.roundPixels = true;
 
         for (var key in tilesMetadata) {
             if (!tilesMetadata.hasOwnProperty(key)) continue;
 
-            game.load.image(key, "assets/" + tilesPrefix + "/" + key + ".jpg");
+            game.load.image(key, "assets/tiles/" + key + ".jpg");
         };
 
         //load emiters' assets
-        for (var m = 0, players = playersInst.getPlayers(), mmax = players.length; m < mmax; m++) {
+        for (var m = 0, players = playerService.getPlayers(), mmax = players.length; m < mmax; m++) {
             var color = players[m].color.split('#')[1];
             game.load.image(color, "assets/pixels/" + color + ".png");
         }
@@ -53,7 +59,7 @@ var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, t
         flagsLayer = game.add.group();
 
         //create particles
-        for (var m = 0, players = playersInst.getPlayers(), mmax = players.length; m < mmax; m++) {
+        for (var m = 0, players = playerService.getPlayers(), mmax = players.length; m < mmax; m++) {
             var color = players[m].color.split('#')[1];
 
             var emitter = game.add.emitter(0, 0, 15);
@@ -67,7 +73,7 @@ var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, t
             emitters[players[m].color] = emitter;
         }
 
-        nextTile(true, FIRST_TILE);
+        nextTile(true, Constants.FIRST_TILE);
         if (!currentTile) {
             return;
         }
@@ -142,25 +148,25 @@ var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, t
     }
 
     function handleAreaClick(area) {
-        tileObjects.setOwnerForObject(area.areaId, playersInst.current().name);
+        tileObjects.setOwnerForObject(area.areaId, playerService.current().name);
         for (var i = 0, imax = currentFlags.length; i < imax; i++) {
             if (currentFlags[i].areaId === area.areaId) {
                 var currentShape = currentFlags[i].graphicsData[0].shape;
 
                 var g = game.add.graphics(0, 0);
-                g.beginFill(playersInst.current().hexColor, 1);
+                g.beginFill(playerService.current().hexColor, 1);
                 g.drawCircle(currentShape.x, currentShape.y, MAN_SIZE);
                 g.endFill();
-                g.flagColor = playersInst.current().color;
-                g.hexColor = playersInst.current().hexColor;
+                g.flagColor = playerService.current().color;
+                g.hexColor = playerService.current().hexColor;
                 flagsLayer.add(g);
 
                 currentTile.ownerFlag = g;
 
                 currentTile.ownerFlag.objectItemId = area.areaId;
-                currentTile.ownerFlag.ownerName = playersInst.current().name;
+                currentTile.ownerFlag.ownerName = playerService.current().name;
 
-                playersInst.decrementFlags();
+                playerService.decrementFlags();
             };
 
             currentFlags[i].destroy();
@@ -221,7 +227,7 @@ var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, t
                 var promise = finishScoreCalculation();
                 promise.then(function() {
                     //todo handle it as event
-                    $(document).trigger("game.over", { winners: playersInst.getWinners() });
+                    $(document).trigger("game.over", { winners: playerService.getWinners() });
                 });
                 return;
             }
@@ -231,7 +237,7 @@ var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, t
             tileQueueServiceObj.putToQueue(keysToReturn);
         }
 
-        var offset = isFirst ? GAME_WORLD_SIZE / 2 : 0;
+        var offset = isFirst ? Constants.GAME_WORLD_SIZE / 2 : 0;
         var tile = tileLayer.create(offset, offset, next.assetName);
         tile.anchor.setTo(0.5, 0.5);
         tile.metadata = tilesMetadata[next.assetName];
@@ -248,7 +254,7 @@ var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, t
         currentTile = tile;
 
         if (!isFirst) {
-            playersInst.next();
+            playerService.next();
         }
     }
 
@@ -336,14 +342,14 @@ var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, t
 
         tileObjects.applyChanges(currentTile);
 
-        if (playersInst.current().availableFlags > 0) {
+        if (playerService.current().availableFlags > 0) {
             show();
             currentTile.events.onInputDown.add(function() { handleTileClick(); });
         }
 
         var promise = updateObjectCompletion();
         
-        if (playersInst.current().availableFlags === 0 || currentFlags.length === 0) {
+        if (playerService.current().availableFlags === 0 || currentFlags.length === 0) {
             promise.then(function () {
                     nextTile();
             });
@@ -419,7 +425,7 @@ var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, t
             }
         }
 
-        var g, objectCell, flagColor = playersInst.current().hexColor;
+        var g, objectCell, flagColor = playerService.current().hexColor;
         for (var key in data) {
             if (!data.hasOwnProperty(key)) continue;
 
@@ -712,7 +718,7 @@ var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, t
         return function() {
             for (var owner in scores) {
                 if (scores.hasOwnProperty(owner)) {
-                    playersInst.update(owner, obj.owners[owner], scores[owner]);
+                    playerService.update(owner, obj.owners[owner], scores[owner]);
                 }
             }
         };
@@ -904,3 +910,5 @@ function GameDragger() {
         }
     }
 };
+
+export default KarkGame;

@@ -1,4 +1,6 @@
-﻿var tileQueueService = function (tilesMeta, tilesSetNumber) {
+﻿import tilesMeta from '../services/metadata';
+
+const tileQueueService = function (tilesSetNumber) {
     "use strict";
 
     var queue = [];
@@ -69,3 +71,5 @@
         _queue: queue
     };
 };
+
+export default tileQueueService;

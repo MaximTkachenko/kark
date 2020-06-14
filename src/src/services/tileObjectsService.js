@@ -224,3 +224,6 @@
         objects: objects
     };
 }
+
+const tileObjectsServiceInstance = tileObjectsService();
+export default tileObjectsServiceInstance;

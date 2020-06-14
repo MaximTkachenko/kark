@@ -10,7 +10,7 @@ export default class GameInfo extends React.Component {
 
     render(){
         return ( 
-            <div id="game-info" className="hidden">
+            <div id="game-info">
                 <div id="players">
                     <PlayersList/>
                 </div>

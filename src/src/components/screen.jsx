@@ -3,6 +3,7 @@ import GameSelector from "./gameSelector";
 import GameArea from "./gameArea";
 import GameInfo from "./gameInfo";
 import playerService from '../services/playerService';
+import KarkGame from '../services/karkGame';
 
 export default class Screen extends React.Component {
     constructor(props) {
@@ -21,6 +22,8 @@ export default class Screen extends React.Component {
         for (var i = 0; i < playersCount; i++){
             playerService.add(this.defaultUsers[i].name, this.defaultUsers[i].color, this.defaultUsers[i].hexColor);
         }
+
+        const game = new KarkGame(tileSetSize);
 
         this.setState({ gameStarted: true });
     }
