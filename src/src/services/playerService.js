@@ -1,6 +1,4 @@
 ﻿var playerService = function () {
-    "use strict";
-
     var self = this,
         currentPlayerIndex = -1,
         changeCallback,
@@ -105,3 +103,6 @@
         }
     };
 };
+
+var ps = new playerService();
+export default ps;
