@@ -1,4 +1,6 @@
-﻿var metadataCalculator = {
+﻿import Constants from "./globalConstants";
+
+export default metadataCalculator = {
     getEdgeStr: function (metadataArray, edge, angle) {
         var edgeContent = this.getContent(metadataArray, edge, angle);
         return [edgeContent[1][0], edgeContent[2][0], edgeContent[3][0]].join();
@@ -8,9 +10,9 @@
         switch (angle) {
             case 0:
                 switch (edge) {
-                    case TOP:
+                    case Constants.TOP:
                         return metadataArray[0];
-                    case LEFT:
+                    case Constants.LEFT:
                         return [
                             metadataArray[0][0],
                             metadataArray[1][0],
@@ -18,7 +20,7 @@
                             metadataArray[3][0],
                             metadataArray[4][0]
                         ];
-                    case RIGHT:
+                    case Constants.RIGHT:
                         return [
                             metadataArray[0][4],
                             metadataArray[1][4],
@@ -26,14 +28,14 @@
                             metadataArray[3][4],
                             metadataArray[4][4]
                         ];
-                    case BOTTOM:
+                    case Constants.BOTTOM:
                         return metadataArray[4];
                     default:
                         return null;
                 }
             case 90:
                 switch (edge) {
-                    case TOP:
+                    case Constants.TOP:
                         return [
                             metadataArray[4][0],
                             metadataArray[3][0],
@@ -41,11 +43,11 @@
                             metadataArray[1][0],
                             metadataArray[0][0]
                         ];
-                    case LEFT:
+                    case Constants.LEFT:
                         return metadataArray[4];
-                    case RIGHT:
+                    case Constants.RIGHT:
                         return metadataArray[0];
-                    case BOTTOM:
+                    case Constants.BOTTOM:
                         return [
                             metadataArray[4][4],
                             metadataArray[3][4],
@@ -58,7 +60,7 @@
                 }
             case -180:
                 switch (edge) {
-                    case TOP:
+                    case Constants.TOP:
                         return [
                             metadataArray[4][4],
                             metadataArray[4][3],
@@ -66,7 +68,7 @@
                             metadataArray[4][1],
                             metadataArray[4][0]
                         ];
-                    case LEFT:
+                    case Constants.LEFT:
                         return [
                             metadataArray[4][4],
                             metadataArray[3][4],
@@ -74,7 +76,7 @@
                             metadataArray[1][4],
                             metadataArray[0][4]
                         ];
-                    case RIGHT:
+                    case Constants.RIGHT:
                         return [
                             metadataArray[4][0],
                             metadataArray[3][0],
@@ -82,7 +84,7 @@
                             metadataArray[1][0],
                             metadataArray[0][0]
                         ];
-                    case BOTTOM:
+                    case Constants.BOTTOM:
                         return [
                             metadataArray[0][4],
                             metadataArray[0][3],
@@ -95,7 +97,7 @@
                 }
             case -90:
                 switch (edge) {
-                    case TOP:
+                    case Constants.TOP:
                         return [
                             metadataArray[0][4],
                             metadataArray[1][4],
@@ -103,7 +105,7 @@
                             metadataArray[3][4],
                             metadataArray[4][4]
                         ];
-                    case LEFT:
+                    case Constants.LEFT:
                         return [
                             metadataArray[0][4],
                             metadataArray[0][3],
@@ -111,7 +113,7 @@
                             metadataArray[0][1],
                             metadataArray[0][0]
                         ];
-                    case RIGHT:
+                    case Constants.RIGHT:
                         return [
                             metadataArray[4][4],
                             metadataArray[4][3],
@@ -119,7 +121,7 @@
                             metadataArray[4][1],
                             metadataArray[4][0]
                         ];
-                    case BOTTOM:
+                    case Constants.BOTTOM:
                         return [
                             metadataArray[0][0],
                             metadataArray[1][0],

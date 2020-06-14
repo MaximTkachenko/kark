@@ -5,7 +5,7 @@ f - field
 c - church
 e - end of road
 */
-var tilesMetadata = {
+const tilesMetadata = {
     tile1: {
         content: [["", "f1", "f1", "f1", ""], 
             ["f1", "f1", "f1", "f1", "f1"], 
@@ -252,3 +252,5 @@ var tilesMetadata = {
         fieldToTown: { "f1": { "t1": 1 }, "f2": { "t1": 1 } }
     }
 };
+
+export default tilesMetadata;

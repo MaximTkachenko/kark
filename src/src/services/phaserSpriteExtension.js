@@ -1,10 +1,14 @@
-﻿(function (tileProto) {
+﻿import Phaser from "phaser";
+import Constants from "./globalConstants";
+import MetadataCalculator from "./metadataCalculator";
+
+(function (tileProto) {
     "use strict";
 
     tileProto.getCorners = function () {
         var x = this.position.x;
         var y = this.position.y;
-        var halfSize = SIZE / 2;
+        var halfSize = Constants.HALF_SIZE;
 
         return {
             leftTop: { x: x - halfSize, y: y - halfSize },
@@ -15,14 +19,14 @@
     };
 
     tileProto.getEdgeStr = function (edge) {
-        return metadataCalculator.getEdgeStr(this.metadata.content, edge, this.angle);
+        return MetadataCalculator.getEdgeStr(this.metadata.content, edge, this.angle);
     }
 
     tileProto.getContent = function (edge) {
-        return metadataCalculator.getContent(this.metadata.content, edge, this.angle);
+        return MetadataCalculator.getContent(this.metadata.content, edge, this.angle);
     }
 
     tileProto.getFullContent = function () {
-        return metadataCalculator.getFullContent(this.metadata.content, this.angle);
+        return MetadataCalculator.getFullContent(this.metadata.content, this.angle);
     }
 })(Phaser.Sprite.prototype);

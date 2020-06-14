@@ -1,3 +1,5 @@
+import playerService from './playerService';
+
 var KarkGame = function (playersInst, tileObjects, gameDragger, tilesMetadata, tileQueueServiceObj, phaser, tilesPrefix) {
     "use strict";
 

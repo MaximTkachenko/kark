@@ -6,12 +6,12 @@
         playersHashObject = {};
 
 
-    self.add = function (newPlayer) {
-        if (playersHashObject[newPlayer.name]) {
-            throw new Error('Player with name "' + newPlayer.name + '" is already registered.');
+    self.add = function (name, color, hexColor) {
+        if (playersHashObject[name]) {
+            throw new Error('Player with name "' + name + '" is already registered.');
         }
 
-        newPlayer.current = false;
+        const newPlayer = {name: name, color: color, hexColor: hexColor, availableFlags: 8, score: 0, current: false};
         playersHashObject[newPlayer.name] = newPlayer;
         players.push(newPlayer);
 

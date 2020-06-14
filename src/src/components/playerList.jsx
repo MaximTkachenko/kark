@@ -1,4 +1,5 @@
 import React from "react";
+import playerService from '../services/playerService';
 
 const Player = props => {
     var playerClasses = ["player-details"];
@@ -17,14 +18,12 @@ const Player = props => {
         </div>);
 };
 
-export default class PlayersList extends Component {
-    getInitialState(){
-        players.registerChangeListener(this.updateState);
-        return { players: players.getPlayers() }; 
+export default class PlayersList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { players: playerService.getPlayers() };
     }
-    updateState(){
-        this.setState({ players: players.getPlayers() });
-    }
+
     render(){
         return (<div>
             {this.state.players.map(function(player){
