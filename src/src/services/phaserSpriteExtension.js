@@ -1,5 +1,4 @@
-﻿import Phaser from "phaser";
-import Constants from "./globalConstants";
+﻿import Constants from "./globalConstants";
 import MetadataCalculator from "./metadataCalculator";
 
 (function (tileProto) {
