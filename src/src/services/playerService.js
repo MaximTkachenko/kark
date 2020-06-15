@@ -1,7 +1,6 @@
 ﻿var playerService = function () {
     var self = this,
         currentPlayerIndex = -1,
-        changeCallback,
         players = [],
         playersHashObject = {};
 
@@ -15,9 +14,7 @@
         playersHashObject[newPlayer.name] = newPlayer;
         players.push(newPlayer);
 
-        if (changeCallback) {
-            changeCallback();
-        }
+        document.dispatchEvent(new CustomEvent('playersChanged', {}));
     };
 
     self.next = function () {
@@ -30,9 +27,7 @@
 
         players[currentPlayerIndex].current = true;
 
-        if (changeCallback) {
-            changeCallback();
-        }
+        document.dispatchEvent(new CustomEvent('playersChanged', {}));
     };
 
     self.current = function () {
@@ -51,9 +46,7 @@
 
         player.availableFlags--;
 
-        if (changeCallback) {
-            changeCallback();
-        }
+        document.dispatchEvent(new CustomEvent('playersChanged', {}));
     };
 
     self.update = function (playerName, flags, scores) {
@@ -70,9 +63,7 @@
             throw new Error('Too much free flags for "' + playerName + '".');
         }
 
-        if (changeCallback) {
-            changeCallback();
-        }
+        document.dispatchEvent(new CustomEvent('playersChanged', {}));
     };
 
     self.getPlayers = function () {
@@ -97,11 +88,7 @@
         return winners;
     };
 
-    self.registerChangeListener = function (callback) {
-        if (callback && callback instanceof Function) {
-            changeCallback = callback;
-        }
-    };
+    
 };
 
 var ps = new playerService();

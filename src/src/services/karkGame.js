@@ -3,8 +3,9 @@ import tilesMetadata from '../services/metadata';
 import tileObjects from '../services/tileObjectsService';
 import tileQueueService from '../services/tileQueueService';
 import Constants from "./globalConstants";
-import extendSpritePrototype from "./phaserSpriteExtension"
-import {getRandomInt, getOpposite} from "./utils"
+import extendSpritePrototype from "./phaserSpriteExtension";
+import {getRandomInt, getOpposite} from "./utils";
+import metadataCalculator from "./metadataCalculator";
 import GameOver from "./errors";
 
 const KarkGame = function (tilesSetNumber) {
@@ -656,7 +657,7 @@ const KarkGame = function (tilesSetNumber) {
             owner,
             scores = {};
 
-        if (obj.type === Constants.TOWN || obj.type === Constants.ObjectTypes.ROAD) {
+        if (obj.type === Constants.ObjectTypes.TOWN || obj.type === Constants.ObjectTypes.ROAD) {
             score = Object.keys(obj.objectItems).length * (obj.type === Constants.ObjectTypes.TOWN ? (obj.slots === 0 ? 2 : 1) : 1);
 
         } else if (obj.type === Constants.ObjectTypes.CHURCH) {
@@ -742,8 +743,8 @@ const KarkGame = function (tilesSetNumber) {
                 cellEdges = {},
                 edgeCount = 0;
 
-            for (i = 0, imax = EDGE_ARR.length; i < imax; i++) {
-                var currentEdge = EDGE_ARR[i];
+            for (i = 0, imax = Constants.EDGE_ARR.length; i < imax; i++) {
+                var currentEdge = Constants.EDGE_ARR[i];
 
                 cellEdges[currentEdge] = null;
                 if (cell[currentEdge]) {
@@ -766,11 +767,11 @@ const KarkGame = function (tilesSetNumber) {
                 requiredEdgeChecksCount = 1;
             }
 
-            for (i = 0, imax = EDGE_ARR.length; i < imax; i++) {
-                var edgeContent = metadataCalculator.getEdgeStr(contentArr, EDGE_ARR[i], 0);
+            for (i = 0, imax = Constants.EDGE_ARR.length; i < imax; i++) {
+                var edgeContent = metadataCalculator.getEdgeStr(contentArr, Constants.EDGE_ARR[i], 0);
 
-                for (j = 0, jmax = EDGE_ARR.length; j < jmax; j++) {
-                    var currentCellEdge = cellEdges[EDGE_ARR[j]];
+                for (j = 0, jmax = Constants.EDGE_ARR.length; j < jmax; j++) {
+                    var currentCellEdge = cellEdges[Constants.EDGE_ARR[j]];
 
                     if (edgeContent === currentCellEdge) {
                         isOk = tileCellSequenceEqual(contentArr, cellEdges, i, j);
@@ -826,9 +827,9 @@ const KarkGame = function (tilesSetNumber) {
             tileEdgeIndex = (tileEdgeIndex + 1) % Constants.TILE_INDEX_MAX;
             cellEdgeIndex = (cellEdgeIndex + 1) % Constants.TILE_INDEX_MAX;
 
-            if (cellEdges[EDGE_ARR[cellEdgeIndex]] !== null &&
-                metadataCalculator.getEdgeStr(contentArr, EDGE_ARR[tileEdgeIndex], 0) !==
-                cellEdges[EDGE_ARR[cellEdgeIndex]]) {
+            if (cellEdges[Constants.EDGE_ARR[cellEdgeIndex]] !== null &&
+                metadataCalculator.getEdgeStr(contentArr, Constants.EDGE_ARR[tileEdgeIndex], 0) !==
+                cellEdges[Constants.EDGE_ARR[cellEdgeIndex]]) {
                 break;
             }
 
