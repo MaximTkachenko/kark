@@ -1,5 +1,7 @@
+import Constants from "./globalConstants";
+
 //http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
-function guid() {
+export function guid() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
@@ -9,20 +11,20 @@ function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
-function getRandomInt(min, max) {
+export function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getOpposite(edge){
+export function getOpposite(edge){
     switch(edge){
-        case TOP:
-            return BOTTOM;
-        case BOTTOM:
-            return TOP;
-        case LEFT:
-            return RIGHT;
-        case RIGHT:
-            return LEFT;
+        case Constants.TOP:
+            return Constants.BOTTOM;
+        case Constants.BOTTOM:
+            return Constants.TOP;
+        case Constants.LEFT:
+            return Constants.RIGHT;
+        case Constants.RIGHT:
+            return Constants.LEFT;
         default:
             return null;
     }

@@ -5,3 +5,5 @@
 
 GameOver.prototype = new Error();
 GameOver.prototype.constructor = GameOver;
+
+export default GameOver;

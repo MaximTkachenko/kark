@@ -1,4 +1,7 @@
-﻿function tileObjectsService() {
+﻿import {guid, getOpposite} from "./utils"
+import Constants from "./globalConstants";
+
+function tileObjectsService() {
     "use strict";
 
     var objects = {};
@@ -34,10 +37,10 @@
                     var objectItems = {};
                     objectItems[objectId] = tile;
 
-                    object = { uid: guid(), type: ObjectTypes.getType(code), objectItems: objectItems, slots: 0, owners: {} };
+                    object = { uid: guid(), type: Constants.ObjectTypes.getType(code), objectItems: objectItems, slots: 0, owners: {} };
                     objects[objectId] = object;
                 }
-                if (i === 0 || j === 0 || i === TILE_INDEX_MAX || j === TILE_INDEX_MAX) {
+                if (i === 0 || j === 0 || i === Constants.TILE_INDEX_MAX || j === Constants.TILE_INDEX_MAX) {
                     object.slots++;
                 }
             }
@@ -47,7 +50,7 @@
     };
 
     var updateSlotsForChurch = function (tile) {
-        var slots = CHURCH_FULL_SCORE - 1,
+        var slots = Constants.CHURCH_FULL_SCORE - 1,
             object,
             neighbourTile;
         
@@ -55,7 +58,7 @@
         if (neighbourTile) {
             slots--;
             if (neighbourTile.metadata.hasChurch) {
-                object = getObject(CHURCH_KEY, neighbourTile);
+                object = getObject(Constants.CHURCH_KEY, neighbourTile);
                 object.slots = object.slots - 1;
             }
         }
@@ -64,7 +67,7 @@
         if (neighbourTile) {
             slots--;
             if (neighbourTile.metadata.hasChurch) {
-                object = getObject(CHURCH_KEY, neighbourTile);
+                object = getObject(Constants.CHURCH_KEY, neighbourTile);
                 object.slots = object.slots - 1;
             }
         }
@@ -73,7 +76,7 @@
         if (neighbourTile) {
             slots--;
             if (neighbourTile.metadata.hasChurch) {
-                object = getObject(CHURCH_KEY, neighbourTile);
+                object = getObject(Constants.CHURCH_KEY, neighbourTile);
                 object.slots = object.slots - 1;
             }
         }
@@ -82,7 +85,7 @@
         if (neighbourTile) {
             slots--;
             if (neighbourTile.metadata.hasChurch) {
-                object = getObject(CHURCH_KEY, neighbourTile);
+                object = getObject(Constants.CHURCH_KEY, neighbourTile);
                 object.slots = object.slots - 1;
             }
         }
@@ -93,7 +96,7 @@
         if (neighbourTile) {
             slots--;
             if (neighbourTile.metadata.hasChurch) {
-                object = getObject(CHURCH_KEY, neighbourTile);
+                object = getObject(Constants.CHURCH_KEY, neighbourTile);
                 object.slots = object.slots - 1;
             }
         }
@@ -104,7 +107,7 @@
         if (neighbourTile) {
             slots--;
             if (neighbourTile.metadata.hasChurch) {
-                object = getObject(CHURCH_KEY, neighbourTile);
+                object = getObject(Constants.CHURCH_KEY, neighbourTile);
                 object.slots = object.slots - 1;
             }
         }
@@ -115,7 +118,7 @@
         if (neighbourTile) {
             slots--;
             if (neighbourTile.metadata.hasChurch) {
-                object = getObject(CHURCH_KEY, neighbourTile);
+                object = getObject(Constants.CHURCH_KEY, neighbourTile);
                 object.slots = object.slots - 1;
             }
         }
@@ -126,7 +129,7 @@
         if (neighbourTile) {
             slots--;
             if (neighbourTile.metadata.hasChurch) {
-                object = getObject(CHURCH_KEY, neighbourTile);
+                object = getObject(Constants.CHURCH_KEY, neighbourTile);
                 object.slots = object.slots - 1;
             }
         }
@@ -135,7 +138,7 @@
             return;
         }
 
-        object = getObject(CHURCH_KEY, tile);
+        object = getObject(Constants.CHURCH_KEY, tile);
         object.slots = slots;
     };
 
@@ -155,16 +158,16 @@
 
     var connectTiles = function (tile) {
         if (tile.neighbours.top) {
-            connectTilesForEdge(tile, TOP);
+            connectTilesForEdge(tile, Constants.TOP);
         }
         if (tile.neighbours.right) {
-            connectTilesForEdge(tile, RIGHT);
+            connectTilesForEdge(tile, Constants.RIGHT);
         }
         if (tile.neighbours.left) {
-            connectTilesForEdge(tile, LEFT);
+            connectTilesForEdge(tile, Constants.LEFT);
         }
         if (tile.neighbours.bottom) {
-            connectTilesForEdge(tile, BOTTOM);
+            connectTilesForEdge(tile, Constants.BOTTOM);
         }
     }
 

@@ -3,10 +3,14 @@ import tilesMetadata from '../services/metadata';
 import tileObjects from '../services/tileObjectsService';
 import tileQueueService from '../services/tileQueueService';
 import Constants from "./globalConstants";
+import extendSpritePrototype from "./phaserSpriteExtension"
+import {getRandomInt, getOpposite} from "./utils"
+import GameOver from "./errors";
 
 const KarkGame = function (tilesSetNumber) {
     "use strict";
 
+    extendSpritePrototype(Phaser.Sprite.prototype);
     var game = new Phaser.Game("100", "100", Phaser.CANVAS, "game-container", { preload: preload, create: create, update: update });
 
     var tileQueueServiceObj = new tileQueueService(tilesSetNumber);
@@ -122,14 +126,14 @@ const KarkGame = function (tilesSetNumber) {
 
                 rect.rect.clear();
                 if (currentTile.dragOk) {
-                    rect.rect.beginFill(PRECALC_DRAG_OK_COLOR, 1);
-                    rect.rect.lineStyle(5, DRAG_OK_BORDER_COLOR, 1);
-                    rect.rect.drawRect(rect.x, rect.y, SIZE, SIZE);
+                    rect.rect.beginFill(Constants.PRECALC_DRAG_OK_COLOR, 1);
+                    rect.rect.lineStyle(5, Constants.DRAG_OK_BORDER_COLOR, 1);
+                    rect.rect.drawRect(rect.x, rect.y, Constants.SIZE, Constants.SIZE);
                     rect.rect.endFill();
                 } else {
                     rect.rect.beginFill(rect.color, 1);
                     rect.rect.lineStyle(0, 0x000000, 0);
-                    rect.rect.drawRect(rect.x, rect.y, SIZE, SIZE);
+                    rect.rect.drawRect(rect.x, rect.y, Constants.SIZE, Constants.SIZE);
                     rect.rect.endFill();
                 }
             }
@@ -140,7 +144,7 @@ const KarkGame = function (tilesSetNumber) {
 
             previousCell.rect.beginFill(previousCell.color, 1);
             previousCell.rect.lineStyle(0, 0x000000, 0);
-            previousCell.rect.drawRect(previousCell.x, previousCell.y, SIZE, SIZE);
+            previousCell.rect.drawRect(previousCell.x, previousCell.y, Constants.SIZE, Constants.SIZE);
             previousCell.rect.endFill();
         }
 
@@ -155,7 +159,7 @@ const KarkGame = function (tilesSetNumber) {
 
                 var g = game.add.graphics(0, 0);
                 g.beginFill(playerService.current().hexColor, 1);
-                g.drawCircle(currentShape.x, currentShape.y, MAN_SIZE);
+                g.drawCircle(currentShape.x, currentShape.y, Constants.MAN_SIZE);
                 g.endFill();
                 g.flagColor = playerService.current().color;
                 g.hexColor = playerService.current().hexColor;
@@ -208,10 +212,10 @@ const KarkGame = function (tilesSetNumber) {
                         var cell = cells[cellsToPut[i]];
 
                         cell.rect.clear();
-                        cell.rect.beginFill(PRECALC_DRAG_OK_COLOR, 1);
-                        cell.rect.drawRect(cell.x, cell.y, SIZE, SIZE);
+                        cell.rect.beginFill(Constants.PRECALC_DRAG_OK_COLOR, 1);
+                        cell.rect.drawRect(cell.x, cell.y, Constants.SIZE, Constants.SIZE);
                         cell.rect.endFill();
-                        cell.color = PRECALC_DRAG_OK_COLOR;
+                        cell.color = Constants.PRECALC_DRAG_OK_COLOR;
                     }
                     break;
                 }
@@ -226,8 +230,7 @@ const KarkGame = function (tilesSetNumber) {
             if (ex instanceof GameOver) {
                 var promise = finishScoreCalculation();
                 promise.then(function() {
-                    //todo handle it as event
-                    $(document).trigger("game.over", { winners: playerService.getWinners() });
+                    alert("WINNERS: " + playerService.getWinners().map(function(w){return w.name;}).join(", ") + "!");
                 });
                 return;
             }
@@ -262,17 +265,17 @@ const KarkGame = function (tilesSetNumber) {
         var corners = tile.getCorners();
 
         if (!tile.neighbours.top) {
-            drawCell(corners.leftTop.x, corners.leftTop.y - SIZE, TOP, tile);
+            drawCell(corners.leftTop.x, corners.leftTop.y - Constants.SIZE, Constants.TOP, tile);
         }
 
         if (!tile.neighbours.bottom) {
-            drawCell(corners.leftBottom.x, corners.leftBottom.y, BOTTOM, tile);
+            drawCell(corners.leftBottom.x, corners.leftBottom.y, Constants.BOTTOM, tile);
         }
         if (!tile.neighbours.left) {
-            drawCell(corners.leftTop.x - SIZE, corners.leftTop.y, LEFT, tile);
+            drawCell(corners.leftTop.x - Constants.SIZE, corners.leftTop.y, Constants.LEFT, tile);
         }
         if (!tile.neighbours.right) {
-            drawCell(corners.rightTop.x, corners.rightTop.y, RIGHT, tile);
+            drawCell(corners.rightTop.x, corners.rightTop.y, Constants.RIGHT, tile);
         }
     }
 
@@ -281,14 +284,14 @@ const KarkGame = function (tilesSetNumber) {
         var cell;
         if (!cells[cellKey]) {
             var g = game.add.graphics(0, 0);
-            g.beginFill(MAIN_COLOR_HEX, 1);
-            g.drawRect(x, y, SIZE, SIZE);
+            g.beginFill(Constants.MAIN_COLOR_HEX, 1);
+            g.drawRect(x, y, Constants.SIZE, Constants.SIZE);
             g.endFill();
 
             cellLayer.add(g);
 
             var rectA = g.graphicsData[0].shape;
-            cell = { x: rectA.x, y: rectA.y, x1: rectA.x + SIZE, y1: rectA.y + SIZE, rect: g, color: MAIN_COLOR_HEX };
+            cell = { x: rectA.x, y: rectA.y, x1: rectA.x + Constants.SIZE, y1: rectA.y + Constants.SIZE, rect: g, color: Constants.MAIN_COLOR_HEX };
             cells[cellKey] = cell;
         } else cell = cells[cellKey];
 
@@ -300,8 +303,8 @@ const KarkGame = function (tilesSetNumber) {
         if (!currentTile.dragOk || !currentTile.active) return;
 
         currentTile.active = false;
-        currentTile.x = currentCell.x + HALF_SIZE;
-        currentTile.y = currentCell.y + HALF_SIZE;
+        currentTile.x = currentCell.x + Constants.HALF_SIZE;
+        currentTile.y = currentCell.y + Constants.HALF_SIZE;
 
         //reset cells
         for (var key in cells) {
@@ -310,10 +313,10 @@ const KarkGame = function (tilesSetNumber) {
             var cell = cells[key];
 
             cell.rect.clear();
-            cell.rect.beginFill(MAIN_COLOR_HEX, 1);
-            cell.rect.drawRect(cell.x, cell.y, SIZE, SIZE);
+            cell.rect.beginFill(Constants.MAIN_COLOR_HEX, 1);
+            cell.rect.drawRect(cell.x, cell.y, Constants.SIZE, Constants.SIZE);
             cell.rect.endFill();
-            cell.color = MAIN_COLOR_HEX;
+            cell.color = Constants.MAIN_COLOR_HEX;
         }
 
         if (currentCell.top) {
@@ -364,16 +367,16 @@ const KarkGame = function (tilesSetNumber) {
         var bottomOk = true;
 
         if (cell.top) {
-            topOk = currentTile.getEdgeStr(TOP) === cell.top.getEdgeStr(BOTTOM);
+            topOk = currentTile.getEdgeStr(Constants.TOP) === cell.top.getEdgeStr(Constants.BOTTOM);
         }
         if (cell.left) {
-            leftOk = currentTile.getEdgeStr(LEFT) === cell.left.getEdgeStr(RIGHT);
+            leftOk = currentTile.getEdgeStr(Constants.LEFT) === cell.left.getEdgeStr(Constants.RIGHT);
         }
         if (cell.right) {
-            rightOk = currentTile.getEdgeStr(RIGHT) === cell.right.getEdgeStr(LEFT);
+            rightOk = currentTile.getEdgeStr(Constants.RIGHT) === cell.right.getEdgeStr(Constants.LEFT);
         }
         if (cell.bottom) {
-            bottomOk = currentTile.getEdgeStr(BOTTOM) === cell.bottom.getEdgeStr(TOP);
+            bottomOk = currentTile.getEdgeStr(Constants.BOTTOM) === cell.bottom.getEdgeStr(Constants.TOP);
         }
         return topOk && leftOk && rightOk && bottomOk;
     }
@@ -417,8 +420,8 @@ const KarkGame = function (tilesSetNumber) {
                     data[content[i][j]] = [];
                 }
                 data[content[i][j]].push({
-                    x: currentTile.x - HALF_SIZE + MAN_SIZE * j + MAN_SIZE_HALF,
-                    y: currentTile.y - HALF_SIZE + MAN_SIZE * i + MAN_SIZE_HALF,
+                    x: currentTile.x - Constants.HALF_SIZE + Constants.MAN_SIZE * j + Constants.MAN_SIZE_HALF,
+                    y: currentTile.y - Constants.HALF_SIZE + Constants.MAN_SIZE * i + Constants.MAN_SIZE_HALF,
                     i: i,
                     j: j
                 });
@@ -434,10 +437,10 @@ const KarkGame = function (tilesSetNumber) {
 
             g = game.add.graphics(0, 0);
             g.beginFill(flagColor, 1);
-            g.lineStyle(3, FLAG_BORDER_COLOR, 1);
+            g.lineStyle(3, Constants.FLAG_BORDER_COLOR, 1);
 
-            objectCell = getObjectCellIndex(ObjectTypes.getType(key), data[key]);
-            g.drawCircle(objectCell.x, objectCell.y, MAN_SIZE);
+            objectCell = getObjectCellIndex(Constants.ObjectTypes.getType(key), data[key]);
+            g.drawCircle(objectCell.x, objectCell.y, Constants.MAN_SIZE);
             g.endFill();
 
             g.areaId = tileObjects.getObjectItemId(key, currentTile);
@@ -462,7 +465,7 @@ const KarkGame = function (tilesSetNumber) {
         for (var i = 0, imax = objectCells.length; i < imax; i++) {
             var cell = objectCells[i];
 
-            if (objectType === ObjectTypes.FIELD) {
+            if (objectType === Constants.ObjectTypes.FIELD) {
                 if ((cell.i === 1 && cell.j === 0) ||
                     (cell.i === 3 && cell.j === 0) ||
                     (cell.i === 1 && cell.j === 4) ||
@@ -473,7 +476,7 @@ const KarkGame = function (tilesSetNumber) {
                     (cell.i === 4 && cell.j === 3)) {
                     return cell;
                 }
-            } else if (objectType === ObjectTypes.ROAD || objectType === ObjectTypes.TOWN) {
+            } else if (objectType === Constants.ObjectTypes.ROAD || objectType === Constants.ObjectTypes.TOWN) {
                 if ((cell.i === 2 && cell.j === 0) ||
                     (cell.i === 0 && cell.j === 2) ||
                     (cell.i === 4 && cell.j === 2) ||
@@ -499,25 +502,25 @@ const KarkGame = function (tilesSetNumber) {
     }
 
     function runInvocatonList(invocationList) {
-        var deferred = $.Deferred();
-        if (invocationList.length > 0) {
-            var flagCount = 0;
-            for (var funcIndex = 0, funcMax = invocationList.length; funcIndex < funcMax; funcIndex++) {
-                var currentFunction = invocationList[funcIndex];
-                var delay = flagCount * 850;
-
-                setTimeout(invocationList[funcIndex], delay);
-                if (funcIndex === funcMax - 1) {
-                    setTimeout(function () { deferred.resolve(); }, delay + 50);
+        return new Promise((resolve, reject) => {
+            if (invocationList.length > 0) {
+                var flagCount = 0;
+                for (var funcIndex = 0, funcMax = invocationList.length; funcIndex < funcMax; funcIndex++) {
+                    var currentFunction = invocationList[funcIndex];
+                    var delay = flagCount * 850;
+    
+                    setTimeout(invocationList[funcIndex], delay);
+                    if (funcIndex === funcMax - 1) {
+                        setTimeout(() => { resolve(); }, delay + 50);
+                    }
+                    if (currentFunction.flagDestroyer) {
+                        flagCount++;
+                    }
                 }
-                if (currentFunction.flagDestroyer) {
-                    flagCount++;
-                }
+            } else {
+                resolve();
             }
-        } else {
-            deferred.resolve();
-        }
-        return deferred.promise();
+          });
     }
 
     function processCompletionForRoadAndTown() {
@@ -531,7 +534,7 @@ const KarkGame = function (tilesSetNumber) {
 
                 var obj = tileObjects.getObject(currentTile.metadata.content[i][j], currentTile);
 
-                if (obj.type !== ObjectTypes.ROAD && obj.type !== ObjectTypes.TOWN) {
+                if (obj.type !== Constants.ObjectTypes.ROAD && obj.type !== Constants.ObjectTypes.TOWN) {
                     continue;
                 }
 
@@ -563,7 +566,7 @@ const KarkGame = function (tilesSetNumber) {
                 return [];
             }
 
-            var object = tileObjects.getObject(CHURCH_KEY, churchTile);
+            var object = tileObjects.getObject(Constants.CHURCH_KEY, churchTile);
 
             if (!object || object.slots > 0 || Object.keys(object.owners).length === 0 || object.processed) {
                 return [];
@@ -653,12 +656,12 @@ const KarkGame = function (tilesSetNumber) {
             owner,
             scores = {};
 
-        if (obj.type === ObjectTypes.TOWN || obj.type === ObjectTypes.ROAD) {
-            score = Object.keys(obj.objectItems).length * (obj.type === ObjectTypes.TOWN ? (obj.slots === 0 ? 2 : 1) : 1);
+        if (obj.type === Constants.TOWN || obj.type === Constants.ObjectTypes.ROAD) {
+            score = Object.keys(obj.objectItems).length * (obj.type === Constants.ObjectTypes.TOWN ? (obj.slots === 0 ? 2 : 1) : 1);
 
-        } else if (obj.type === ObjectTypes.CHURCH) {
-            score = CHURCH_FULL_SCORE - obj.slots;
-        } else if (obj.type === ObjectTypes.FIELD) {
+        } else if (obj.type === Constants.ObjectTypes.CHURCH) {
+            score = Constants.CHURCH_FULL_SCORE - obj.slots;
+        } else if (obj.type === Constants.ObjectTypes.FIELD) {
             var processedTowns = {};
 
             for (var tileObjectKey in obj.objectItems) {
@@ -795,7 +798,7 @@ const KarkGame = function (tilesSetNumber) {
 
         var g = game.add.graphics(0, 0);
         g.beginFill(ownerFlag.hexColor, 0.7);
-        g.drawCircle(shape.x, shape.y, MAN_SIZE + 4);
+        g.drawCircle(shape.x, shape.y, Constants.MAN_SIZE + 4);
         g.endFill();
         flagsLayer.add(g);
 
@@ -820,8 +823,8 @@ const KarkGame = function (tilesSetNumber) {
         var i = 0;
 
         do {
-            tileEdgeIndex = (tileEdgeIndex + 1) % TILE_INDEX_MAX;
-            cellEdgeIndex = (cellEdgeIndex + 1) % TILE_INDEX_MAX;
+            tileEdgeIndex = (tileEdgeIndex + 1) % Constants.TILE_INDEX_MAX;
+            cellEdgeIndex = (cellEdgeIndex + 1) % Constants.TILE_INDEX_MAX;
 
             if (cellEdges[EDGE_ARR[cellEdgeIndex]] !== null &&
                 metadataCalculator.getEdgeStr(contentArr, EDGE_ARR[tileEdgeIndex], 0) !==
@@ -830,10 +833,10 @@ const KarkGame = function (tilesSetNumber) {
             }
 
             i++;
-        } while (i < TILE_INDEX_MAX);
+        } while (i < Constants.TILE_INDEX_MAX);
 
 
-        return i === TILE_INDEX_MAX;
+        return i === Constants.TILE_INDEX_MAX;
     }
 
     //todo unit tests

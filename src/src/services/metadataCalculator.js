@@ -1,6 +1,6 @@
 ﻿import Constants from "./globalConstants";
 
-export default metadataCalculator = {
+const metadataCalculator = {
     getEdgeStr: function (metadataArray, edge, angle) {
         var edgeContent = this.getContent(metadataArray, edge, angle);
         return [edgeContent[1][0], edgeContent[2][0], edgeContent[3][0]].join();
@@ -164,3 +164,5 @@ export default metadataCalculator = {
         }
     }
 };
+
+export default metadataCalculator;

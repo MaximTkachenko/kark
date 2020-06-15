@@ -1,4 +1,5 @@
 ﻿import tilesMeta from '../services/metadata';
+import {getRandomInt} from "./utils"
 
 const tileQueueService = function (tilesSetNumber) {
     "use strict";

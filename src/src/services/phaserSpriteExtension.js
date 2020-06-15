@@ -1,7 +1,7 @@
 ﻿import Constants from "./globalConstants";
 import MetadataCalculator from "./metadataCalculator";
 
-(function (tileProto) {
+export default function extendSpritePrototype (tileProto) {
     "use strict";
 
     tileProto.getCorners = function () {
@@ -28,4 +28,4 @@ import MetadataCalculator from "./metadataCalculator";
     tileProto.getFullContent = function () {
         return MetadataCalculator.getFullContent(this.metadata.content, this.angle);
     }
-})(Phaser.Sprite.prototype);
+};
