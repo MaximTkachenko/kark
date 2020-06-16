@@ -25,11 +25,13 @@ export default class PlayersList extends React.Component {
     }
 
     componentDidMount(){
+        console.log('FIRED!');
         document.addEventListener('playersChanged', () => {this.updatePlayers();});
     }
 
     updatePlayers(){
-        this.state = { players: playerService.getPlayers() };
+        this.setState({ players: playerService.getPlayers() });
+        console.log(this.state.players);
     }
 
     render(){
