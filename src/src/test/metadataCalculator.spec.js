@@ -1,4 +1,4 @@
-﻿import metadataCalculator from "./metadataCalculator";
+﻿import metadataCalculator from "../services/metadataCalculator";
 
 describe("metadataCalculator", () => {
     var content = [

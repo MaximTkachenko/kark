@@ -1,4 +1,5 @@
 ﻿import tileQueueService from '../services/tileQueueService';
+import GameOver from "../services/errors";
 
 describe("tileQueueService", () => {
     var tiles = {
@@ -46,20 +47,20 @@ describe("tileQueueService", () => {
 
         test("should throw GameError if there is no tiles in queue", () => {
             var obj = tileQueueService(tiles, 1);
-
+            
             obj.getNextTile();
             obj.getNextTile();
             obj.getNextTile();
             obj.getNextTile();
-
-            expect(function () { obj.getNextTile(); }).toThrow(new GameOver());
+            
+            expect(() => { obj.getNextTile(); }).toThrow(GameOver);
         });
     });
 
     describe("putToQueue", () => {
 
         test("should add key to queue", () => {
-            var obj = tileQueueService(tiles, 1);
+            var obj = new tileQueueService(tiles, 1);
 
             obj.putToQueue([{ assetName: "asset_name", key: "key" }]);
 

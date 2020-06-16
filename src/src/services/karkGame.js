@@ -14,7 +14,7 @@ const KarkGame = function (tilesSetNumber) {
     extendSpritePrototype(Phaser.Sprite.prototype);
     var game = new Phaser.Game("100", "100", Phaser.CANVAS, "game-container", { preload: preload, create: create, update: update });
 
-    var tileQueueServiceObj = new tileQueueService(tilesSetNumber);
+    var tileQueueServiceObj = new tileQueueService(tilesMetadata, tilesSetNumber);
     var gameDragger = new GameDragger();
     var cells = {};
     var tileLayer;

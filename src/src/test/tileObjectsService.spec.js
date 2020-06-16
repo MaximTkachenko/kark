@@ -1,10 +1,11 @@
-﻿import obj from '../services/tileObjectsService';
+﻿import {tileObjectsService} from '../services/tileObjectsService';
+import metadataCalculator from "../services/metadataCalculator";
 
 describe("tileObjectsService", () => {
 
     describe("getObjectItemId", () => {
         test("should produce correct tile object id", () => {
-            //var obj = tileObjectsService();
+            var obj = tileObjectsService();
             var fakeTile = {uid: "tile_8"};
 
             expect(obj.getObjectItemId("t1", fakeTile)).toEqual("tile_8_t1");
@@ -13,7 +14,7 @@ describe("tileObjectsService", () => {
 
     describe("applyChanges", () => {
         test("should create tile objects for each unique object on tile [ROAD, TOWN, FIELD]", () => {
-            //var obj = tileObjectsService();
+            var obj = tileObjectsService();
             var fakeTile = {
                 uid: "tile_8",
                 metadata: {
@@ -54,7 +55,7 @@ describe("tileObjectsService", () => {
         });
 
         test("should create tile objects for each unique object on tile [CHURCH, FIELD, ROAD]", () => {
-            //var obj = tileObjectsService();
+            var obj = tileObjectsService();
             var fakeTile = {
                 uid: "tile_8",
                 metadata: {
@@ -90,7 +91,7 @@ describe("tileObjectsService", () => {
         });
 
         test("throws error in case of call the method for the same tile twice", () => {
-            //var obj = tileObjectsService();
+            var obj = tileObjectsService();
             var fakeTile = {
                 uid: "tile_8",
                 metadata: {
@@ -111,7 +112,7 @@ describe("tileObjectsService", () => {
         });
 
         test("should set proper slot count for church object", () => {
-            //var obj = tileObjectsService();
+            var obj = tileObjectsService();
             var fakeTile = {
                 uid: "tile_3",
                 metadata: {
@@ -136,7 +137,7 @@ describe("tileObjectsService", () => {
         });
 
         test("should update slot count for church when new tile has beed connected", () => {
-            //var obj = tileObjectsService();
+            var obj = tileObjectsService();
             var fakeTile1 = {
                 uid: "tile_3",
                 metadata: {
@@ -184,7 +185,7 @@ describe("tileObjectsService", () => {
         });
 
         test("should connect tile objects for connected tiles properly", () => {
-            //var obj = tileObjectsService();
+            var obj = tileObjectsService();
             var fakeTile1 = {
                 uid: "tile_10",
                 angle: 0,
@@ -239,7 +240,7 @@ describe("tileObjectsService", () => {
         });
 
         test("should connect tile objects for connected tiles properly if current tile has angle 180", () => {
-            //var obj = tileObjectsService();
+            var obj = tileObjectsService();
             var fakeTile1 = {
                 uid: "tile_10",
                 angle: 0,
@@ -294,7 +295,7 @@ describe("tileObjectsService", () => {
         });
 
         test("should connect tile objects for connected tiles properly [COMPLEX CASE]", () => {
-            //var obj = tileObjectsService();
+            var obj = tileObjectsService();
             var fakeTile1 = {
                 uid: "tile_10",
                 angle: 0,
@@ -398,7 +399,7 @@ describe("tileObjectsService", () => {
     describe("setOwnerForObject", () => {
 
         test("should set owner for object", () => {
-            //var obj = tileObjectsService();
+            var obj = tileObjectsService();
             var fakeTile = {
                 uid: "tile_8",
                 metadata: {
@@ -421,7 +422,7 @@ describe("tileObjectsService", () => {
         });
 
         test("should throw error in case of call the method twice for the same object", () => {
-            //var obj = tileObjectsService();
+            var obj = tileObjectsService();
             var fakeTile = {
                 uid: "tile_8",
                 metadata: {

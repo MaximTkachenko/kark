@@ -1,7 +1,7 @@
 ﻿import {guid, getOpposite} from "./utils"
 import Constants from "./globalConstants";
 
-function tileObjectsService() {
+export function tileObjectsService() {
     "use strict";
 
     var objects = {};

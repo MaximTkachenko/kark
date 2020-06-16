@@ -1,9 +1,7 @@
-﻿function GameOver() {
-    this.name = "GameOver";
-    this.message = "game over";
-}
-
-GameOver.prototype = new Error();
-GameOver.prototype.constructor = GameOver;
-
-export default GameOver;
+﻿export default class GameOver extends Error {
+    constructor()
+    {
+        super("game over");
+        this.name = "GameOver";
+    }
+};

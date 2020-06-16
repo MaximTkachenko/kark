@@ -1,7 +1,7 @@
-﻿import tilesMeta from '../services/metadata';
-import {getRandomInt} from "./utils"
+﻿import {getRandomInt} from "./utils";
+import GameOver from "./errors";
 
-const tileQueueService = function (tilesSetNumber) {
+const tileQueueService = function (tilesMeta, tilesSetNumber) {
     "use strict";
 
     var queue = [];
@@ -21,7 +21,7 @@ const tileQueueService = function (tilesSetNumber) {
 
     var getNextTile = function(tileName) {
         var index = -1;
-
+        
         if (queue.length === 0) {
             throw new GameOver();
         }

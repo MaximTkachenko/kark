@@ -33,7 +33,8 @@ module.exports = {
       }),
       new CopyPlugin({
         patterns: [
-          { from: 'assets', to: 'assets' }
+          { from: 'assets/pixels', to: 'assets/pixels' },
+          { from: 'assets/tiles', to: 'assets/tiles' }
         ],
       })
     ],
