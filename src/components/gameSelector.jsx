@@ -55,7 +55,7 @@ export default class GameSelector extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-md-12" style={ruleLinkStyle}>
-                            <a href="https://www.youtube.com/watch?v=d89u-gXjIVY" style={ruleLinkContainerStyle} target="_blank">How to play carassonne</a>
+                            <a href="https://www.youtube.com/watch?v=d89u-gXjIVY" style={ruleLinkContainerStyle} target="_blank">How to play carcassonne</a>
                         </div>
                     </div>
                 </div>
