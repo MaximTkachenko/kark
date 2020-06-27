@@ -19,7 +19,7 @@
 - available placements for a tile are marked with green
 
 ## Tasks:
-- [ ] use latest version of pahser
+- [ ] use latest version of phaser
 - [ ] proper caching  and loading indicator for assets
 - [ ] refactoring of services
 - [ ] refactoring of unit tests
