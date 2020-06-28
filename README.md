@@ -23,3 +23,4 @@
 - [ ] proper caching  and loading indicator for assets
 - [ ] refactoring of services
 - [ ] refactoring of unit tests
+- [ ] add help info (drag game, one click, double click, circles selection)
