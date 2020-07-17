@@ -49,7 +49,7 @@ export default class Screen extends React.Component {
 
         const assetsLoadingMessage = this.state.assetsLoaded
             ? <React.Fragment></React.Fragment>
-            : <div style={assetsLoadingMessageStyle}>ASSETS LOADING...</div>;
+            : <div style={assetsLoadingMessageStyle}>LOADING ASSETS...</div>;
 
         return this.state.gameStarted ? 
             <React.Fragment>
