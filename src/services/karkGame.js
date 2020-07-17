@@ -47,11 +47,10 @@ const KarkGame = function (tilesSetNumber) {
             var color = players[m].color.split('#')[1];
             game.load.image(color, "assets/pixels/" + color + ".png");
         }
-
-        setTimeout(() => { document.dispatchEvent(new CustomEvent("assetsLoaded", {}))}, 200);
     }
 
     function create() {
+        setTimeout(() => { document.dispatchEvent(new CustomEvent("assetsLoaded", {}))}, 200);
 
         game.input.addMoveCallback(function(pointer, x, y) {
             if (currentTile && currentTile.active) {
