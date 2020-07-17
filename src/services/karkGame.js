@@ -47,6 +47,8 @@ const KarkGame = function (tilesSetNumber) {
             var color = players[m].color.split('#')[1];
             game.load.image(color, "assets/pixels/" + color + ".png");
         }
+
+        document.dispatchEvent(new CustomEvent("assetsLoaded", {}));        
     }
 
     function create() {

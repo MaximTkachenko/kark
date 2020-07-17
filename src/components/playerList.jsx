@@ -22,23 +22,22 @@ export default class PlayersList extends React.Component {
     constructor(props) {
         super(props);
         this.state = { players: playerService.getPlayers() };
+        this.updatePlayers = this.updatePlayers.bind(this);
     }
 
     componentDidMount(){
-        console.log('FIRED!');
-        document.addEventListener('playersChanged', () => {this.updatePlayers();});
+        document.addEventListener('playersChanged', this.updatePlayers);
     }
 
     updatePlayers(){
         this.setState({ players: playerService.getPlayers() });
-        console.log(this.state.players);
     }
 
     render(){
         return (<div>
-            {this.state.players.map(function(player){
-                return <Player key={player.name} {...player}/>
-            })}
-        </div>);
+                {this.state.players.map(function(player){
+                    return <Player key={player.name} {...player}/>
+                })}
+            </div>);
     }
 };

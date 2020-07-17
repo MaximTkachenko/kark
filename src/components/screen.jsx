@@ -8,8 +8,10 @@ import KarkGame from '../services/karkGame';
 export default class Screen extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { gameStarted: false };
+        this.state = { gameStarted: false, assetsLoaded: false };
         this.startTheGame = this.startTheGame.bind(this);
+        this.assetsLoaded = this.assetsLoaded.bind(this);
+
         this.defaultUsers = [
             {name: "Frodo Baggins", color: "#FF333C", hexColor: 0xFF333C},
             {name: "Gandalf the Grey", color: "#3933FF", hexColor: 0x3933FF},
@@ -28,9 +30,30 @@ export default class Screen extends React.Component {
         this.setState({ gameStarted: true });
     }
 
+    componentDidMount(){
+        document.addEventListener('assetsLoaded', this.assetsLoaded);
+    }
+
+    assetsLoaded(){
+        this.setState({ assetsLoaded: true });
+    }
+
     render(){
+        const assetsLoadingMessageStyle = {
+            position: 'absolute',
+            top: '50%',
+            left: '35%',
+            fontSize: 'xx-large',
+            fontWeight: 900
+        };        
+
+        const assetsLoadingMessage = this.state.assetsLoaded
+            ? <React.Fragment></React.Fragment>
+            : <div style={assetsLoadingMessageStyle}>ASSETS LOADING...</div>;
+
         return this.state.gameStarted ? 
             <React.Fragment>
+                {assetsLoadingMessage}
                 <GameArea></GameArea>  
                 <GameInfo></GameInfo>                
             </React.Fragment> 
