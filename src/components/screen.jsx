@@ -41,8 +41,8 @@ export default class Screen extends React.Component {
     render(){
         const assetsLoadingMessageStyle = {
             position: 'absolute',
-            top: '50%',
-            left: '35%',
+            top: '30%',
+            left: '40%',
             fontSize: 'xx-large',
             fontWeight: 900
         };        

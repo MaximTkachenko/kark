@@ -48,7 +48,7 @@ const KarkGame = function (tilesSetNumber) {
             game.load.image(color, "assets/pixels/" + color + ".png");
         }
 
-        document.dispatchEvent(new CustomEvent("assetsLoaded", {}));        
+        setTimeout(() => { document.dispatchEvent(new CustomEvent("assetsLoaded", {}))}, 200);
     }
 
     function create() {
