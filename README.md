@@ -24,3 +24,6 @@
 - [ ] refactoring of services
 - [ ] refactoring of unit tests
 - [ ] add help info (drag game, one click, double click, circles selection)
+
+# To read
+- https://shakuro.com/blog/phaser-js-a-step-by-step-tutorial-on-making-a-phaser-3-game
